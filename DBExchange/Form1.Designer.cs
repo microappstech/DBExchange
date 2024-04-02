@@ -1,6 +1,6 @@
 ﻿namespace DBExchange
 {
-    partial class Form1
+    partial class DBExchange
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label1 = new Label();
             nextBtn = new Button();
             CB_Databases = new ComboBox();
             label2 = new Label();
-            backBtn = new Button();
+            btnReset = new Button();
             label3 = new Label();
             panel1 = new Panel();
             lbCollumnsSrc = new ListBox();
@@ -46,11 +47,13 @@
             List_Columns_dest = new ListBox();
             label7 = new Label();
             List_Tables_dest = new ListBox();
+            label4 = new Label();
             label5 = new Label();
             CB_Database_Dest = new ComboBox();
-            label4 = new Label();
+            DGVResult = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DGVResult).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -63,16 +66,15 @@
             label1.Size = new Size(335, 36);
             label1.TabIndex = 2;
             label1.Text = "Chose The Database Source";
-            label1.Click += label1_Click;
             // 
             // nextBtn
             // 
             nextBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 192, 0);
             nextBtn.FlatAppearance.BorderSize = 3;
             nextBtn.ForeColor = Color.Black;
-            nextBtn.Location = new Point(429, 846);
+            nextBtn.Location = new Point(743, 846);
             nextBtn.Name = "nextBtn";
-            nextBtn.Size = new Size(385, 34);
+            nextBtn.Size = new Size(282, 34);
             nextBtn.TabIndex = 3;
             nextBtn.Text = "Next";
             nextBtn.UseVisualStyleBackColor = true;
@@ -97,19 +99,19 @@
             label2.Size = new Size(93, 28);
             label2.TabIndex = 7;
             label2.Text = "Database";
-            label2.Click += label2_Click;
             // 
-            // backBtn
+            // btnReset
             // 
-            backBtn.FlatAppearance.BorderColor = Color.Red;
-            backBtn.FlatAppearance.BorderSize = 3;
-            backBtn.ForeColor = Color.Black;
-            backBtn.Location = new Point(96, 846);
-            backBtn.Name = "backBtn";
-            backBtn.Size = new Size(327, 34);
-            backBtn.TabIndex = 8;
-            backBtn.Text = "Back";
-            backBtn.UseVisualStyleBackColor = true;
+            btnReset.FlatAppearance.BorderColor = Color.Red;
+            btnReset.FlatAppearance.BorderSize = 3;
+            btnReset.ForeColor = Color.Black;
+            btnReset.Location = new Point(67, 846);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(265, 34);
+            btnReset.TabIndex = 8;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
             // 
             // label3
             // 
@@ -206,10 +208,10 @@
             panel2.Controls.Add(List_Columns_dest);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(List_Tables_dest);
+            panel2.Controls.Add(label4);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(CB_Database_Dest);
-            panel2.Controls.Add(label4);
-            panel2.Location = new Point(617, 22);
+            panel2.Location = new Point(568, 22);
             panel2.Name = "panel2";
             panel2.Size = new Size(457, 801);
             panel2.TabIndex = 13;
@@ -255,6 +257,7 @@
             List_Columns_dest.Size = new Size(329, 254);
             List_Columns_dest.TabIndex = 13;
             List_Columns_dest.Visible = false;
+            List_Columns_dest.SelectedIndexChanged += List_Columns_dest_SelectedIndexChanged;
             // 
             // label7
             // 
@@ -279,6 +282,17 @@
             List_Tables_dest.Visible = false;
             List_Tables_dest.SelectedIndexChanged += List_Tables_dest_SelectedIndexChanged;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 13F);
+            label4.ForeColor = Color.Green;
+            label4.Location = new Point(24, 22);
+            label4.Name = "label4";
+            label4.Size = new Size(335, 36);
+            label4.TabIndex = 3;
+            label4.Text = "Chose The Database Source";
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -299,34 +313,49 @@
             CB_Database_Dest.TabIndex = 8;
             CB_Database_Dest.SelectedIndexChanged += CB_Database_Dest_SelectedIndexChanged;
             // 
-            // label4
+            // DGVResult
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 13F);
-            label4.ForeColor = Color.Green;
-            label4.Location = new Point(37, 22);
-            label4.Name = "label4";
-            label4.Size = new Size(335, 36);
-            label4.TabIndex = 3;
-            label4.Text = "Chose The Database Source";
+            DGVResult.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DGVResult.BackgroundColor = SystemColors.ButtonFace;
+            DGVResult.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            DGVResult.DefaultCellStyle = dataGridViewCellStyle2;
+            DGVResult.GridColor = SystemColors.InactiveBorder;
+            DGVResult.Location = new Point(1106, 93);
+            DGVResult.Name = "DGVResult";
+            DGVResult.ReadOnly = true;
+            DGVResult.RowHeadersWidth = 62;
+            DGVResult.Size = new Size(772, 225);
+            DGVResult.TabIndex = 15;
+            DGVResult.Visible = false;
             // 
-            // Form1
+            // DBExchange
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1131, 897);
+            ClientSize = new Size(1924, 976);
+            Controls.Add(DGVResult);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(backBtn);
+            Controls.Add(btnReset);
             Controls.Add(nextBtn);
             ForeColor = SystemColors.ButtonHighlight;
-            Name = "Form1";
+            Name = "DBExchange";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DGVResult).EndInit();
             ResumeLayout(false);
         }
 
@@ -335,7 +364,7 @@
         private Button nextBtn;
         private ComboBox CB_Databases;
         private Label label2;
-        private Button backBtn;
+        private Button btnReset;
         private Label label3;
         private Panel panel1;
         private Panel panel2;
@@ -352,5 +381,6 @@
         private Button btnClearColumnsDest;
         private Button btnClearTableDest;
         private ListBox lbCollumnsSrc;
+        private DataGridView DGVResult;
     }
 }
