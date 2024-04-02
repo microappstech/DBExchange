@@ -42,22 +42,48 @@ namespace DBE.Services.Services
         public List<string> LoadTableByDbName(string DbName)
         {
             List<string> Items = new List<string>();
-            using(SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = $"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = '{DbName}';";
+                    string query = $"SELECT * FROM {DbName}.INFORMATION_SCHEMA.TABLES;";
                     SqlCommand command = new SqlCommand(query, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string tableName = reader["name"].ToString();
+                        string tableName = reader["TABLE_NAME"].ToString();
                         Items.Add(tableName);
                     }
                     connection.Close();
                     return Items;
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("");
+                }
+            }
+        }
+        public List<string> LoadColumnsByTable(string DbName,string TableName)
+        {
+            List<string> Items = new List<string>();
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = $"SELECT COLUMN_NAME FROM {DbName}.INFORMATION_SCHEMA.COlUMNS where TABLE_NAME ='{TableName}';";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string tableName = reader["COLUMN_NAME"].ToString();
+                        Items.Add(tableName);
+                    }
+                    connection.Close();
+                    return Items;
+                }
+                catch (Exception ex)
                 {
                     throw new Exception("");
                 }
